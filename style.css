@@ -84,6 +84,7 @@ main {
 	display: flex;
 	font-size: 2rem;
 	color: #e71d36;
+	margin-top: 1rem;
 }
 
 .p1-score {
@@ -100,6 +101,15 @@ main {
 
 .score {
 	margin-right: .5rem;
+}
+
+/* Announcememnts */
+.announcement {
+	width: fit-content;
+	margin: 0 auto;
+	margin-top: 1rem;
+	font-size: 2rem;
+	color: #e71d36;
 }
 
 /* Footer */
