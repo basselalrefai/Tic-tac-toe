@@ -83,6 +83,7 @@ main {
 .score-container {
 	display: flex;
 	font-size: 2rem;
+	color: #e71d36;
 }
 
 .p1-score {
@@ -99,4 +100,22 @@ main {
 
 .score {
 	margin-right: .5rem;
+}
+
+/* Footer */
+.footer-container {
+	display: grid;
+	align-content: end;
+	font-size: 1.3rem;
+}
+
+.footer-link {
+	color: inherit;
+	text-emphasis: none;
+	text-decoration: none;
+}
+.footer-container h3 {
+	margin-bottom: 1rem;
+	color: #e71d36;
+	margin-left: 1rem;
 }
