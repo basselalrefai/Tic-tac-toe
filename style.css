@@ -11,3 +11,12 @@ Rest: "Open Sans", Sans-serif
 */
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+
+/* Universal Styles */
+body {
+	height: 100vh;
+	background-color: #32292f;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 16px;
+	box-sizing: border-box;
+}
