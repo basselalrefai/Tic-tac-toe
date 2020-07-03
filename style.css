@@ -1,8 +1,8 @@
 /* Color pallete 
 Background: #32292F
 Gameboard Baclground: #CED0CE
-Button Background:  #E71D36
-Text: #4A8FE7
+Button Background:  #CED0CE
+Text: #e71d36
 */
 
 /* FOnts
@@ -35,4 +35,22 @@ main {
 	margin: 0 auto;
 	width: 50%;
 	text-align: center;
+}
+
+/* Buttons */
+.btns-container {
+	text-align: center;
+	margin-top: 1rem;
+}
+.btn {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 1.2rem;
+	background-color: #ced0ce;
+	border-radius: .25rem;
+	border: 1px solid transparent;
+	vertical-align: middle;
+	white-space: nowrap;
+	cursor: pointer;
+	outline: none;
+	color: #e71d36;
 }
