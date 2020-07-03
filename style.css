@@ -33,11 +33,11 @@ main {
 	grid-template-columns: repeat(3, 1fr);
 	background-color: #ced0ce;
 	margin: 0 auto;
-	width: 50%;
+	width: 37.5rem;
 	text-align: center;
 	border-radius: 5px;
 	font-size: 8rem;
-	height: 45rem;
+	height: 37.5rem;
 }
 
 .gameboard-grid-container div {
@@ -55,7 +55,7 @@ main {
 /* Buttons */
 .btns-container {
 	text-align: center;
-	margin-top: 1rem;
+	margin-top: 3rem;
 }
 .btn {
 	font-family: 'Open Sans', sans-serif;
@@ -73,4 +73,8 @@ main {
 
 .btn:hover {
 	opacity: .5;
+}
+
+.reset-btn {
+	margin-left: 1rem;
 }
