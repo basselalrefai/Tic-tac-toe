@@ -78,3 +78,25 @@ main {
 .reset-btn {
 	margin-left: 1rem;
 }
+
+/* Score Board */
+.score-container {
+	display: flex;
+	font-size: 2rem;
+}
+
+.p1-score {
+	float: left;
+}
+
+.p2-score {
+	float: right;
+}
+
+.name {
+	margin-right: 1rem;
+}
+
+.score {
+	margin-right: .5rem;
+}
