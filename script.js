@@ -48,7 +48,14 @@ const gameStateMod = (function() {
 		tie = false;
 	};
 
-	return { startGame, endGame, resetGame };
+	const nextRound = () => {
+		for (let i = 0; i < 9; i++) {
+			let cells = document.querySelectorAll('.cell');
+			cells.forEach((cell) => (cell.textContent = ''));
+		}
+	};
+
+	return { startGame, endGame, resetGame, nextRound };
 })();
 
 //Player Factory
@@ -65,3 +72,17 @@ const Player = (name, symbol, playerNum) => {
 
 	return { name, isX, isO, playerNum };
 };
+
+//Render Module
+const render = (function() {
+	const gameboardDiv = document.querySelector('.gameboard-grid-container');
+	for (let i = 0; i < 9; i++) {
+		let cell = document.createElement('div');
+		cell.setAttribute('data-index', `${i}`);
+		cell.classList.add('cell');
+		cell.textContent = 'X';
+		gameboardDiv.appendChild(cell);
+	}
+})();
+
+window.addEventListener('load', render);
