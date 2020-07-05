@@ -50,3 +50,18 @@ const gameStateMod = (function() {
 
 	return { startGame, endGame, resetGame };
 })();
+
+//Player Factory
+const Player = (name, symbol, playerNum) => {
+	let isX = false;
+	let isO = false;
+	if (symbol.toLowerCase() === 'x') {
+		isX = true;
+	} else {
+		isO = true;
+	}
+
+	if (playerNum > 2) throw new Error('Something is wrong the code sees three players');
+
+	return { name, isX, isO, playerNum };
+};
