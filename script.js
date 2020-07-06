@@ -26,6 +26,8 @@ const gameBoardMod = (function() {
 const gameStateMod = (function() {
 	let currentPlayer = gameBoardMod.playerArr[0]['symbol'];
 	let isPlaying = false;
+	let p1Counter = 0;
+	let p2Counter = 0;
 	let winArray = [
 		[ 0, 1, 2 ],
 		[ 3, 4, 5 ],
@@ -47,7 +49,31 @@ const gameStateMod = (function() {
 			)
 				winner = gameBoardMod.gameboard[winArray[0]];
 		});
-		return winner ? winner : gameBoardMod.gameboard.includes(null) ? null : 'Tie';
+		winner ? winner : gameBoardMod.gameboard.includes(null) ? null : 'Tie';
+		if (winner) {
+			const cells = document.querySelectorAll('.cell');
+			for (let i = 0; i < 9; i++) {
+				cells[i].removeEventListener('click', cellClickHandler);
+			}
+		}
+		renderWinner(winner);
+	}
+
+	function renderWinner(winner) {
+		const msgDisplay = document.querySelector('.announcement');
+		const p1ScoreDisplay = document.querySelector('.p1-score-num');
+		const p2ScoreDisplay = document.querySelector('.p2-score-num');
+		if (winner === null) {
+			return;
+		} else if (winner === 'Tie') {
+			msgDisplay.textContent = "It's a Tie!";
+		} else {
+			let winArr = gameBoardMod.playerArr.filter((obj) => (obj['symbol'] === winner ? true : false));
+			winArr[0]['playerNum'] === 1 ? p1Counter++ : p2Counter++;
+			p1ScoreDisplay.textContent = `${p1Counter}`;
+			p2ScoreDisplay.textContent = `${p2Counter}`;
+			msgDisplay.textContent = `${winArr[0]['name']} has won.`;
+		}
 	}
 
 	function cellClickHandler(cell) {
