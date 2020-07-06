@@ -7,6 +7,7 @@ const gameBoardMod = (function() {
 			let cell = document.createElement('div');
 			cell.setAttribute('data-index', `${i}`);
 			cell.classList.add('cell');
+			gameboard.push(null);
 			gameboardDiv.appendChild(cell);
 		}
 	}
