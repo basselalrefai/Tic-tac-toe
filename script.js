@@ -1,3 +1,10 @@
+//Player Factory
+const Player = (name, symbol, playerNum) => {
+	if (playerNum > 2) throw new Error('Something is wrong the code sees three players');
+	symbol = symbol.toUpperCase();
+	return { name, symbol, playerNum };
+};
+
 // Gameboard Module
 const gameBoardMod = (function() {
 	let gameboard = [];
@@ -11,76 +18,61 @@ const gameBoardMod = (function() {
 			gameboardDiv.appendChild(cell);
 		}
 	}
-	return { gameboard, render };
+	let playerArr = [ Player('ali', 'x', 1), Player('Moh', 'o', 2) ];
+	return { gameboard, render, playerArr };
 })();
 
 //State Module
 const gameStateMod = (function() {
-	let playing = false;
-	let vsAi = false;
-	let vsPlayer = false;
-	let p1Counter = 0;
-	let p2Counter = 0;
-	let winner = '';
-	let loser = '';
-	let tie = false;
+	let currentPlayer = gameBoardMod.playerArr[0]['symbol'];
+	let isPlaying = false;
+	let winArray = [
+		[ 0, 1, 2 ],
+		[ 3, 4, 5 ],
+		[ 6, 7, 8 ],
+		[ 0, 3, 6 ],
+		[ 1, 4, 7 ],
+		[ 2, 5, 8 ],
+		[ 0, 4, 8 ],
+		[ 2, 4, 6 ]
+	];
 
-	const startGame = (opponent) => {
-		playing = true;
-		if (opponent === 'ai') {
-			vsAi = true;
-		} else {
-			vsPlayer = true;
-		}
-	};
-
-	const endGame = (result, whoWon, whoLost) => {
-		if (result === 'tie') {
-			tie = true;
-		} else if (result === 'p1Win') {
-			winner += whoWon;
-			loser += whoLost;
-			p1Counter++;
-		} else if (result === 'p2Win') {
-			winner += whoWon;
-			loser += whoLost;
-			p2Counter++;
-		}
-	};
-
-	const resetGame = () => {
-		p1Counter = 0;
-		p2Counter = 0;
-		vsAi = false;
-		vsPlayer = false;
-		winner = '';
-		loser = '';
-		tie = false;
-	};
-
-	const nextRound = () => {
-		for (let i = 0; i < 9; i++) {
-			let cells = document.querySelectorAll('.cell');
-			cells.forEach((cell) => (cell.textContent = ''));
-		}
-	};
-
-	return { startGame, endGame, resetGame, nextRound };
-})();
-
-//Player Factory
-const Player = (name, symbol, playerNum) => {
-	let isX = false;
-	let isO = false;
-	if (symbol.toLowerCase() === 'x') {
-		isX = true;
-	} else {
-		isO = true;
+	function checkWin() {
+		let winner = null;
+		winArray.forEach(function(winArray, index) {
+			if (
+				gameBoardMod.gameboard[winArray[0]] &&
+				gameBoardMod.gameboard[winArray[0]] === gameBoardMod.gameboard[winArray[1]] &&
+				gameBoardMod.gameboard[winArray[0]] === gameBoardMod.gameboard[winArray[2]]
+			)
+				winner = gameBoardMod.gameboard[winArray[0]];
+		});
+		return winner;
 	}
 
-	if (playerNum > 2) throw new Error('Something is wrong the code sees three players');
+	function cellClickHandler(cell) {
+		cell.target.textContent = `${currentPlayer}`;
+		let cellId = cell.target.dataset.index;
+		gameBoardMod.gameboard[cellId] = currentPlayer;
+		if (currentPlayer === 'X') {
+			currentPlayer = 'O';
+		} else if (currentPlayer === 'O') {
+			currentPlayer = 'X';
+		}
+		checkWin();
+		cell.target.removeEventListener('click', cellClickHandler);
+	}
 
-	return { name, isX, isO, playerNum };
-};
+	function startGame() {
+		isPlaying = true;
+		for (let i = 0; i < gameBoardMod.gameboard.length; i++) {
+			let cell = document.querySelector(`[data-index="${i}"]`);
+			cell.addEventListener('click', cellClickHandler);
+		}
+	}
+
+	return { startGame };
+})();
 
 window.addEventListener('load', gameBoardMod.render);
+window.addEventListener('load', gameStateMod.startGame);
