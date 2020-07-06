@@ -45,6 +45,8 @@ main {
 	display: grid;
 	align-content: center;
 	justify-content: center;
+	width: 198px;
+	height: 198px;
 }
 
 .gameboard-grid-container div:hover {
