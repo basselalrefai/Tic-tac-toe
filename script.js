@@ -28,6 +28,7 @@ const gameStateMod = (function() {
 	let isPlaying = false;
 	let p1Counter = 0;
 	let p2Counter = 0;
+	const msgDisplay = document.querySelector('.announcement');
 	let winArray = [
 		[ 0, 1, 2 ],
 		[ 3, 4, 5 ],
@@ -57,10 +58,10 @@ const gameStateMod = (function() {
 			}
 		}
 		renderWinner(winner);
+		return winner;
 	}
 
 	function renderWinner(winner) {
-		const msgDisplay = document.querySelector('.announcement');
 		const p1ScoreDisplay = document.querySelector('.p1-score-num');
 		const p2ScoreDisplay = document.querySelector('.p2-score-num');
 		if (winner === null) {
@@ -94,6 +95,20 @@ const gameStateMod = (function() {
 		for (let i = 0; i < gameBoardMod.gameboard.length; i++) {
 			let cell = document.querySelector(`[data-index="${i}"]`);
 			cell.addEventListener('click', cellClickHandler);
+		}
+	}
+
+	const nextRoundBtn = document.querySelector('.next-round-btn');
+	nextRoundBtn.addEventListener('click', nextRound);
+
+	function nextRound() {
+		if (!checkWin()) return;
+		const cells = document.querySelectorAll('.cell');
+		for (let i = 0; i < gameBoardMod.gameboard.length; i++) {
+			gameBoardMod.gameboard[i] = null;
+			cells[i].textContent = '';
+			msgDisplay.textContent = '';
+			cells[i].addEventListener('click', cellClickHandler);
 		}
 	}
 
