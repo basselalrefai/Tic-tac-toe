@@ -18,7 +18,7 @@ const gameBoardMod = (function() {
 			gameboardDiv.appendChild(cell);
 		}
 	}
-	let playerArr = [ Player('ali', 'x', 1), Player('Moh', 'o', 2) ];
+	let playerArr = [ Player('Ali', 'x', 1), Player('Moh', 'o', 2) ];
 	return { gameboard, render, playerArr };
 })();
 
@@ -29,6 +29,16 @@ const gameStateMod = (function() {
 	let p1Counter = 0;
 	let p2Counter = 0;
 	const msgDisplay = document.querySelector('.announcement');
+	const resetGameBtn = document.querySelector('.reset-btn');
+	const nextRoundBtn = document.querySelector('.next-round-btn');
+	const p1ScoreDisplay = document.querySelector('.p1-score-num');
+	const p2ScoreDisplay = document.querySelector('.p2-score-num');
+	const p1Name = document.querySelector('.p1-name');
+	const p2Name = document.querySelector('.p2-name');
+	p2Name.textContent = `${gameBoardMod.playerArr[1]['name']}: `;
+	p1Name.textContent = `${gameBoardMod.playerArr[0]['name']}: `;
+	resetGameBtn.addEventListener('click', resetGame);
+	nextRoundBtn.addEventListener('click', nextRound);
 	let winArray = [
 		[ 0, 1, 2 ],
 		[ 3, 4, 5 ],
@@ -57,13 +67,10 @@ const gameStateMod = (function() {
 				cells[i].removeEventListener('click', cellClickHandler);
 			}
 		}
-		renderWinner(winner);
 		return winner;
 	}
 
 	function renderWinner(winner) {
-		const p1ScoreDisplay = document.querySelector('.p1-score-num');
-		const p2ScoreDisplay = document.querySelector('.p2-score-num');
 		if (winner === null) {
 			return;
 		} else if (winner === 'Tie') {
@@ -87,6 +94,7 @@ const gameStateMod = (function() {
 			currentPlayer = 'X';
 		}
 		checkWin();
+		renderWinner(checkWin());
 		cell.target.removeEventListener('click', cellClickHandler);
 	}
 
@@ -98,11 +106,23 @@ const gameStateMod = (function() {
 		}
 	}
 
-	const nextRoundBtn = document.querySelector('.next-round-btn');
-	nextRoundBtn.addEventListener('click', nextRound);
-
 	function nextRound() {
 		if (!checkWin()) return;
+		const cells = document.querySelectorAll('.cell');
+		for (let i = 0; i < gameBoardMod.gameboard.length; i++) {
+			gameBoardMod.gameboard[i] = null;
+			cells[i].textContent = '';
+			msgDisplay.textContent = '';
+			cells[i].addEventListener('click', cellClickHandler);
+		}
+	}
+
+	function resetGame() {
+		isPlaying = false;
+		p1Counter = 0;
+		p2Counter = 0;
+		p1ScoreDisplay.textContent = 0;
+		p2ScoreDisplay.textContent = 0;
 		const cells = document.querySelectorAll('.cell');
 		for (let i = 0; i < gameBoardMod.gameboard.length; i++) {
 			gameBoardMod.gameboard[i] = null;
