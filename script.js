@@ -47,7 +47,7 @@ const gameStateMod = (function() {
 			)
 				winner = gameBoardMod.gameboard[winArray[0]];
 		});
-		return winner;
+		return winner ? winner : gameBoardMod.gameboard.includes(null) ? null : 'Tie';
 	}
 
 	function cellClickHandler(cell) {
