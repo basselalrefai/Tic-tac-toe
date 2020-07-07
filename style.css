@@ -13,6 +13,14 @@ Rest: "Open Sans", Sans-serif
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
 
 /* Universal Styles */
+* {
+	box-sizing: border-box;
+}
+
+.hide {
+	display: none;
+}
+
 body {
 	height: 100vh;
 	background-color: #32292f;
@@ -120,6 +128,7 @@ main {
 	display: grid;
 	align-content: end;
 	font-size: 1.3rem;
+	grid-row: 3;
 }
 
 .footer-link {
@@ -131,4 +140,48 @@ main {
 	margin-bottom: 1rem;
 	color: #e71d36;
 	margin-left: 1rem;
+}
+
+/* Form */
+.wrapper {
+	background-color: #ced0ce;
+	width: 600px;
+	height: 600px;
+	border-radius: 15px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -300px 0 0 -300px;
+}
+
+form {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: nowrap;
+}
+
+.p-radio,
+.p-text {
+	width: 100%;
+	font-size: 2rem;
+	margin: 1.3rem;
+	padding-left: 6rem;
+}
+
+.text-input {
+	width: 80%;
+	padding: 1rem;
+	margin-top: 1rem;
+}
+
+.submit-btn {
+	width: 16rem;
+	border-radius: 5px;
+	background-color: #e71d36;
+	color: #ffffff;
+	margin-top: 3rem;
 }

@@ -8,7 +8,34 @@
     <link rel="stylesheet" href="./Reset.CSS">
 </head>
 <body>
-    <header>
+
+    <div class="wrapper">
+        <form >
+            <p class="p-text">
+                <label for="p1-name">Player 1: </label>
+                <input class="text-input" type="text" name="p1-name" id="p1-name" />
+            </p>
+
+            <p class="p-radio">
+                <label class="radio-label" for="x-symbol">X</label>
+                <input class="radio-input" type="radio" name="x-symbol" id="x-symbol" value="X"/>
+                <label class="radio-label" for="o-symbol">O</label>
+                <input class="radio-input" type="radio" name="o-symbol" id="o-symbol" value="O">
+            </p>
+
+            <p class="p-text">
+                <label class="text-label" for="p2-name">Player 2: </label>
+                <input class="text-input" type="text" name="p2-name" id="p2-name" />
+            </p>
+
+            <p class="p-submit">
+                <button class="submit-btn btn">Submit</button>
+            </p>
+
+        </form>
+    </div>
+
+    <header class="hide">
         <section class="p1-score score-container">
             <h2 class="p1-name name">Player 1:</h2>
             <h2 class="p1-score p1-score-num score">0</h2>
@@ -21,7 +48,7 @@
             <h2 class="announcement"></h2>
         </section>
     </header>
-    <main>
+    <main class="hide">
         <div class="gameboard-grid-container">
         </div>
         <div class="btns-container">
