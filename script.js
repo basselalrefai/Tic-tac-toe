@@ -7,7 +7,42 @@ const Player = (name, symbol, playerNum) => {
 
 // Gameboard Module
 const gameBoardMod = (function() {
+	let player1Name = document.getElementById('.p1-name');
+	let player2Name = document.getElementById('.p2-name');
+	let player1Symbol = document.getElementById('x-symbol').checked ? 'X' : 'O';
+	let player2Symbol;
+	let playerArr = [];
+	let form = document.querySelector('form');
+	const header = document.querySelector('.header');
+	const mainDiv = document.querySelector('.main');
+	const wrapper = document.querySelector('.wrapper');
+	form.addEventListener('submit', handleSubmit);
 	let gameboard = [];
+
+	function handleSubmit(e) {
+		e.preventDefault();
+		const { target } = e;
+		player1Name = target['0']['value'];
+		player2Name = target['3']['value'];
+		player1Symbol = target['1']['checked'] === true ? target['1']['value'] : target['2']['value'];
+		player2Symbol = player1Symbol === 'X' ? 'O' : 'X';
+		let player1 = Player(player1Name, player1Symbol, 1);
+		let player2 = Player(player2Name, player2Symbol, 2);
+		if (playerArr.length >= 1) {
+			playerArr = [];
+			playerArr.push(player1, player2);
+		} else {
+			playerArr.push(player1, player2);
+		}
+		wrapper.classList.add('hide');
+		header.classList.remove('hide');
+		mainDiv.classList.remove('hide');
+		const p1Name = document.querySelector('.p1-name');
+		const p2Name = document.querySelector('.p2-name');
+		p2Name.textContent = `${gameBoardMod.playerArr[1]['name']}: `;
+		p1Name.textContent = `${gameBoardMod.playerArr[0]['name']}: `;
+	}
+
 	function render() {
 		const gameboardDiv = document.querySelector('.gameboard-grid-container');
 		for (let i = 0; i < 9; i++) {
@@ -18,13 +53,12 @@ const gameBoardMod = (function() {
 			gameboardDiv.appendChild(cell);
 		}
 	}
-	let playerArr = [ Player('Ali', 'x', 1), Player('Moh', 'o', 2) ];
-	return { gameboard, render, playerArr };
+	return { gameboard, render, playerArr, form };
 })();
 
 //State Module
 const gameStateMod = (function() {
-	let currentPlayer = gameBoardMod.playerArr[0]['symbol'];
+	let currentPlayer = 'X';
 	let isPlaying = false;
 	let p1Counter = 0;
 	let p2Counter = 0;
@@ -33,10 +67,6 @@ const gameStateMod = (function() {
 	const nextRoundBtn = document.querySelector('.next-round-btn');
 	const p1ScoreDisplay = document.querySelector('.p1-score-num');
 	const p2ScoreDisplay = document.querySelector('.p2-score-num');
-	const p1Name = document.querySelector('.p1-name');
-	const p2Name = document.querySelector('.p2-name');
-	p2Name.textContent = `${gameBoardMod.playerArr[1]['name']}: `;
-	p1Name.textContent = `${gameBoardMod.playerArr[0]['name']}: `;
 	resetGameBtn.addEventListener('click', resetGame);
 	nextRoundBtn.addEventListener('click', nextRound);
 	let winArray = [
@@ -60,13 +90,23 @@ const gameStateMod = (function() {
 			)
 				winner = gameBoardMod.gameboard[winArray[0]];
 		});
-		winner ? winner : gameBoardMod.gameboard.includes(null) ? null : 'Tie';
+		if (winner) {
+			winner = winner;
+		} else if (!winner) {
+			if (gameBoardMod.gameboard.includes(null)) {
+				winner = null;
+			} else {
+				winner = 'Tie';
+			}
+		}
+		//winner ? winner : gameBoardMod.gameboard.includes(null) ? null : 'Tie';
 		if (winner) {
 			const cells = document.querySelectorAll('.cell');
 			for (let i = 0; i < 9; i++) {
 				cells[i].removeEventListener('click', cellClickHandler);
 			}
 		}
+		console.log(winner);
 		return winner;
 	}
 
