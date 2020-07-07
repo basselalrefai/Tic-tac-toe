@@ -13,29 +13,29 @@
         <form >
             <p class="p-text">
                 <label for="p1-name">Player 1: </label>
-                <input class="text-input" type="text" name="p1-name" id="p1-name" />
+                <input class="text-input" type="text" name="p1-name" id="p1-name" required/>
             </p>
 
             <p class="p-radio">
                 <label class="radio-label" for="x-symbol">X</label>
-                <input class="radio-input" type="radio" name="x-symbol" id="x-symbol" value="X"/>
+                <input class="radio-input" type="radio" name="symbol" id="x-symbol" value="X"/>
                 <label class="radio-label" for="o-symbol">O</label>
-                <input class="radio-input" type="radio" name="o-symbol" id="o-symbol" value="O">
+                <input class="radio-input" type="radio" name="symbol" id="o-symbol" value="O">
             </p>
 
             <p class="p-text">
                 <label class="text-label" for="p2-name">Player 2: </label>
-                <input class="text-input" type="text" name="p2-name" id="p2-name" />
+                <input class="text-input" type="text" name="p2-name" id="p2-name" required/>
             </p>
 
             <p class="p-submit">
-                <button class="submit-btn btn">Submit</button>
+                <button type="submit" id="submit-btn" class="submit-btn btn">Submit</button>
             </p>
 
         </form>
     </div>
 
-    <header class="hide">
+    <header class="hide header">
         <section class="p1-score score-container">
             <h2 class="p1-name name">Player 1:</h2>
             <h2 class="p1-score p1-score-num score">0</h2>
@@ -48,7 +48,7 @@
             <h2 class="announcement"></h2>
         </section>
     </header>
-    <main class="hide">
+    <main class="hide main">
         <div class="gameboard-grid-container">
         </div>
         <div class="btns-container">
