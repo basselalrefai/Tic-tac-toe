@@ -26,6 +26,7 @@ const gameBoardMod = (function() {
 		player2Name = target['3']['value'];
 		player1Symbol = target['1']['checked'] === true ? target['1']['value'] : target['2']['value'];
 		player2Symbol = player1Symbol === 'X' ? 'O' : 'X';
+		gameStateMod.setCurrentPlayer(player1Symbol);
 		let player1 = Player(player1Name, player1Symbol, 1);
 		let player2 = Player(player2Name, player2Symbol, 2);
 		if (playerArr.length >= 1) {
@@ -64,7 +65,7 @@ const gameBoardMod = (function() {
 
 //State Module
 const gameStateMod = (function() {
-	let currentPlayer = 'X';
+	let currentPlayer;
 	let isPlaying = false;
 	let p1Counter = 0;
 	let p2Counter = 0;
@@ -85,6 +86,10 @@ const gameStateMod = (function() {
 		[ 0, 4, 8 ],
 		[ 2, 4, 6 ]
 	];
+
+	function setCurrentPlayer(symbol) {
+		currentPlayer = symbol;
+	}
 
 	function checkWin() {
 		let winner = null;
@@ -180,7 +185,7 @@ const gameStateMod = (function() {
 		location.reload();
 	}
 
-	return { startGame };
+	return { startGame, setCurrentPlayer };
 })();
 
 window.addEventListener('load', gameBoardMod.render);
