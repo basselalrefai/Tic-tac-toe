@@ -12,7 +12,7 @@ const gameBoardMod = (function() {
 	let player1Symbol = document.getElementById('x-symbol').checked ? 'X' : 'O';
 	let player2Symbol;
 	let playerArr = [];
-	let form = document.querySelector('form');
+	let form = document.querySelector('.form');
 	const header = document.querySelector('.header');
 	const mainDiv = document.querySelector('.main');
 	const wrapper = document.querySelector('.wrapper');
@@ -53,7 +53,13 @@ const gameBoardMod = (function() {
 			gameboardDiv.appendChild(cell);
 		}
 	}
-	return { gameboard, render, playerArr, form };
+
+	function hideAndDisplayForm() {
+		mainDiv.classList.add('hide');
+		header.classList.add('hide');
+		wrapper.classList.remove('hide');
+	}
+	return { gameboard, render, playerArr, form, hideAndDisplayForm };
 })();
 
 //State Module
@@ -170,6 +176,7 @@ const gameStateMod = (function() {
 			msgDisplay.textContent = '';
 			cells[i].addEventListener('click', cellClickHandler);
 		}
+		gameBoardMod.hideAndDisplayForm();
 	}
 
 	return { startGame };
