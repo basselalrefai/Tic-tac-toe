@@ -177,6 +177,7 @@ const gameStateMod = (function() {
 			cells[i].addEventListener('click', cellClickHandler);
 		}
 		gameBoardMod.hideAndDisplayForm();
+		location.reload();
 	}
 
 	return { startGame };
